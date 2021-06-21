@@ -1,0 +1,12 @@
+[package]
+name = "tree_decorator"
+version = "0.1.0"
+authors = ["Lucas Miranda <miranda.a.lucas@gmail.com>"]
+edition = "2018"
+description = "An utility lib to render pleasing tree structures at terminal programs."
+repository = "https://github.com/lucas-miranda/tree_decorator/"
+license = "MIT"
+keywords = ["tree", "aesthetics", "decorate", "term", "string"]
+categories = ["command-line-interface"]
+
+[dependencies]
