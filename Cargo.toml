@@ -1,6 +1,6 @@
 [package]
 name = "tree_decorator"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Lucas Miranda <miranda.a.lucas@gmail.com>"]
 edition = "2018"
 description = "An utility lib to render pleasing tree structures at terminal programs."
@@ -10,3 +10,12 @@ keywords = ["tree", "aesthetics", "decorate", "term", "string"]
 categories = ["command-line-interface"]
 
 [dependencies]
+log = { version = "^0.4", optional = true }
+
+[dev-dependencies]
+simple_logger = "^1.11.0"
+
+[features]
+default = ["log"]
+no_log = []
+

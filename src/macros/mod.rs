@@ -113,3 +113,7 @@ macro_rules! end_all_tree_items {
         $crate::reset_level();
     };
 }
+
+#[cfg(not(feature = "no_log"))]
+#[macro_use]
+mod log;
