@@ -10,4 +10,4 @@
 
 
 [Unreleased]: https://github.com/lucas-miranda/tree_decorator/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/lucas-miranda/tree_decorator/tree/v0.1.0
+[0.1.0]: https://github.com/lucas-miranda/tree_decorator/compare/08787f7...v0.1.0
