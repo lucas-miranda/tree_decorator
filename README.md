@@ -15,7 +15,7 @@ See [Documentation](https://docs.rs/tree_decorator).
 
 As little, or none, as needed.
 
-Until now, only [log](https://crates.io/crates/log) will be added, in the near future, to simplify macro calls.
+[log](https://crates.io/crates/log) only, to simplify macro calls.
 
 ## Usage
 
