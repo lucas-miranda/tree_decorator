@@ -69,8 +69,8 @@ A style which will be applied to tree item.
 
 Every opt-in style must match the name defined at [Style](https://docs.rs/tree_decorator/latest/tree_decorator/struct.Style.html) struct fields and multiple ones can be declared using `;` as separator to them.
 
-Declaring only it's name will apply a style item default enable value (see at (StyleItemValue)[https://docs.rs/tree_decorator/latest/src/tree_decorator/decorator/style_item_value.rs.html]). 
-Not to be confused with (std::default::Default)[https://doc.rust-lang.org/std/default/trait.Default.html] as it could not be the same value.
+Declaring only it's name will apply a style item default enable value (see at [StyleItemValue](https://docs.rs/tree_decorator/latest/src/tree_decorator/decorator/style_item_value.rs.html)). 
+Not to be confused with [std::default::Default](https://doc.rust-lang.org/std/default/trait.Default.html) as it could not be the same value.
 
 #### Example
 
