@@ -13,6 +13,7 @@ See [Documentation](https://docs.rs/tree_decorator).
 ## Dependencies
 
 As little, or none, as needed.
+
 Until now, only [log](https://crates.io/crates/log) will be added, in the near future, to simplify macro calls.
 
 ## Usage
@@ -66,6 +67,7 @@ tree_item!(
 A style which will be applied to that tree item.
 
 Every opt-in style must match the name defined at Style struct fields (please check [Documentation](https://docs.rs/tree_decorator)) and multiple ones can be declared using `;` as separator to them.
+
 Declaring only it's name will apply a style item default enable value. (Not to be confused with `std::default::Default` it could not be the same value)
 
 #### Example
@@ -88,7 +90,7 @@ use tree_decorator::{
 tree_item!(block; dashed; entry: Entry::Double, "Dashed block starting with double entry tree item");
 ```
 
-**Note**: Order doesn't matter at styles defination.
+**Note**: Order doesn't matter at styles definition.
 
 ### Literal String and Interpolation Args
 
