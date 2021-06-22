@@ -4,7 +4,8 @@ An utility rust lib to render pleasing tree structures at terminal programs.
 
 [![Latest Version](https://img.shields.io/crates/v/tree_decorator)](https://crates.io/crates/tree_decorator)
 
-It's goal is to simplify tree structure display while ensuring a good looking to it. So it just handle strings, returning the expected result (with current level and supplied styles) and nothing more.
+It's goal is to simplify tree structure display while ensuring a good looking to it. 
+So it just handle strings, returning the expected result (with current level and supplied styles) and nothing more.
 
 Already comes with a standard visual implementation, so is ready to use, but a custom implementation is very easy to set.
 
@@ -64,11 +65,12 @@ tree_item!(
 
 ### Styles
 
-A style which will be applied to that tree item.
+A style which will be applied to tree item.
 
-Every opt-in style must match the name defined at Style struct fields (please check [Documentation](https://docs.rs/tree_decorator)) and multiple ones can be declared using `;` as separator to them.
+Every opt-in style must match the name defined at [Style](https://docs.rs/tree_decorator/latest/tree_decorator/struct.Style.html) struct fields and multiple ones can be declared using `;` as separator to them.
 
-Declaring only it's name will apply a style item default enable value. (Not to be confused with `std::default::Default` it could not be the same value)
+Declaring only it's name will apply a style item default enable value (see at (StyleItemValue)[https://docs.rs/tree_decorator/latest/src/tree_decorator/decorator/style_item_value.rs.html]). 
+Not to be confused with (std::default::Default)[https://doc.rust-lang.org/std/default/trait.Default.html] as it could not be the same value.
 
 #### Example
 
