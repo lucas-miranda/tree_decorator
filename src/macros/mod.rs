@@ -9,7 +9,7 @@ macro_rules! apply_style {
     };
 
     ($style:expr, $name:ident : $value:expr $( ; $other_name:ident $( : $other_value:expr )? )*) => {
-        $style.$name = $value_path$value;
+        $style.$name = $value;
 
         $( 
             $crate::apply_style!($style, $other_name $( : $other_value )? );
