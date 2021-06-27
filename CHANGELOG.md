@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Add documentation to everything until now
+
 ## [0.1.1] - **22/06/2021**
 
 * Add log helper macros to simplify calls
