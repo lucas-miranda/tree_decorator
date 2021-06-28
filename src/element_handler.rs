@@ -83,10 +83,15 @@ impl ElementHandler {
         //       instead of calling it at every single item
 
         for (level, style) in self.previous_styles.iter().enumerate().skip(1).rev() {
-            m.insert_str(
-                0, 
-                crate::DECORATOR.previous_item_block(level as u32, &style)
-            );
+            let block_len = crate::DECORATOR.block_length();
+            let item = crate::DECORATOR.previous_item_block(level as u32, &style);
+            let item_chars_count = item.chars().count();
+
+            if item_chars_count < block_len {
+                m.insert_str(0, &" ".repeat(block_len - item_chars_count));
+            }
+
+            m.insert_str(0, item);
         }
     }
 }

@@ -139,11 +139,11 @@ impl Decorator for StandardDecorator {
         }
 
         if style.last {
-            "   "
+            " "
         } else if style.dashed {
-            "┆  "
+            "┆"
         } else {
-            "│  "
+            "│"
         }
     }
 }
