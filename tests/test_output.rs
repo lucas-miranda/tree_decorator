@@ -1,9 +1,9 @@
 use std::cell::RefCell;
 
 use tree_decorator::{
+    close_tree_item,
     decorator::Entry,
     DecoratorBuilder,
-    end_all_tree_items,
     tree_item
 };
 
@@ -19,25 +19,33 @@ fn test_output() {
                      .default_handler(|m| {
                          unsafe {
                              if let Some(b) = &BUFFER {
-                                 b.borrow_mut().push_str(&m);
-                                 b.borrow_mut().push('\n');
+                                 let mut buffer = b.borrow_mut();
+                                 buffer.push_str(&m);
+                                 buffer.push('\n');
                              }
                          }
                      })
                      .build();
 
-    tree_decorator::handle_styles!(block:true);
+    assert_eq!(0, tree_decorator::level());
 
     tree_item!(block, "Root");
-    tree_item!(entry, "Item A");
-    tree_item!(entry: Entry::None, "Small Description");
-    tree_item!(dashed, "Other Small Description");
-    tree_item!(last; block, "Item B");
-    tree_item!("Item Ba");
-    tree_item!(block, "Item Bb");
-    tree_item!(last, "Item Bba");
-    tree_item!(last, "Item Bc");
-    end_all_tree_items!();
+        assert_eq!(1, tree_decorator::level());
+        tree_item!(entry, "Item A");
+        tree_item!(entry: Entry::None, "Small Description");
+        tree_item!(dashed, "Other Small Description");
+        tree_item!(last; block, "Item B");
+            assert_eq!(2, tree_decorator::level());
+            tree_item!("Item Ba");
+            tree_item!(block, "Item Bb");
+                assert_eq!(3, tree_decorator::level());
+                tree_item!(last, "Item Bba");
+            assert_eq!(2, tree_decorator::level());
+            tree_item!(last, "Item Bc");
+        assert_eq!(1, tree_decorator::level());
+        close_tree_item!();
+
+    assert_eq!(0, tree_decorator::level());
 
     unsafe { 
         if let Some(b) = &BUFFER {

@@ -6,7 +6,7 @@ fn test_output() {
     use tree_decorator::{
         decorator::Entry,
         DecoratorBuilder,
-        end_all_tree_items,
+        close_tree_item,
         tree_item_info,
         tree_item_debug,
         tree_item_error,
@@ -19,18 +19,25 @@ fn test_output() {
     DecoratorBuilder::default()
                      .build();
 
-    tree_decorator::handle_styles!(block:true);
+    assert_eq!(0, tree_decorator::level());
 
     tree_item_info!(block, "Root");
-    tree_item_info!(entry, "Item A");
-    tree_item_debug!(entry: Entry::None, "Small Description");
-    tree_item_trace!(dashed, "Other Small Description");
-    tree_item_info!(last; block, "Item B");
-    tree_item_info!("Item Ba");
-    tree_item_error!(block, "Item Bb");
-    tree_item_warn!(last, "Item Bba");
-    tree_item_trace!(last, "Item Bc");
-    end_all_tree_items!();
+        assert_eq!(1, tree_decorator::level());
+        tree_item_info!(entry, "Item A");
+        tree_item_debug!(entry: Entry::None, "Small Description");
+        tree_item_trace!(dashed, "Other Small Description");
+        tree_item_info!(last; block, "Item B");
+            assert_eq!(2, tree_decorator::level());
+            tree_item_info!("Item Ba");
+            tree_item_error!(block, "Item Bb");
+                assert_eq!(3, tree_decorator::level());
+                tree_item_warn!(last, "Item Bba");
+            assert_eq!(2, tree_decorator::level());
+            tree_item_trace!(last, "Item Bc");
+        assert_eq!(1, tree_decorator::level());
+        close_tree_item!();
+
+    assert_eq!(0, tree_decorator::level());
 
     tree_decorator::shutdown();
 }

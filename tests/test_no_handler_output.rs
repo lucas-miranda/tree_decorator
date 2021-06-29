@@ -1,7 +1,7 @@
 use tree_decorator::{
+    close_tree_item,
     decorator::Entry,
     DecoratorBuilder,
-    end_all_tree_items,
     tree_item
 };
 
@@ -9,6 +9,8 @@ use tree_decorator::{
 fn test_no_handler_output() {
     DecoratorBuilder::default()
                      .build();
+
+    assert_eq!(0, tree_decorator::level());
 
     assert_eq!("Root", tree_item!(block, "Root"));
     assert_eq!("├  Item A", tree_item!(entry, "Item A"));
@@ -19,8 +21,9 @@ fn test_no_handler_output() {
     assert_eq!("   ├  Item Bb", tree_item!(block, "Item Bb"));
     assert_eq!("   │  └  Item Bba", tree_item!(last, "Item Bba"));
     assert_eq!("   └  Item Bc", tree_item!(last, "Item Bc"));
-
-    end_all_tree_items!();
+    close_tree_item!();
+    
+    assert_eq!(0, tree_decorator::level());
 
     assert_eq!("Root", format!("{}Root", tree_item!(block)));
     assert_eq!("├  Item A", format!("{}Item A", tree_item!(entry)));
@@ -31,8 +34,9 @@ fn test_no_handler_output() {
     assert_eq!("   ├  Item Bb", format!("{}Item Bb", tree_item!(block)));
     assert_eq!("   │  └  Item Bba", format!("{}Item Bba", tree_item!(last)));
     assert_eq!("   └  Item Bc", format!("{}Item Bc", tree_item!(last)));
+    close_tree_item!();
 
-    end_all_tree_items!();
+    assert_eq!(0, tree_decorator::level());
 
     tree_decorator::shutdown();
 }
