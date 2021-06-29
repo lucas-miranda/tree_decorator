@@ -2,7 +2,7 @@ use crate::decorator::Style;
 
 /// Handle tree elements by applying styles.
 pub struct ElementHandler {
-    previous_styles: Vec<Style>,
+    previous_blocks: Vec<Block>,
     default_style: Style,
     fallback: Box<dyn FnMut(String)>
 }
@@ -14,7 +14,7 @@ impl ElementHandler {
     /// [`DecoratorBuilder::build`]: crate::DecoratorBuilder
     pub(crate) fn new(fallback: Box<dyn FnMut(String)>) -> Self {
         Self {
-            previous_styles: Vec::new(),
+            previous_blocks: Vec::new(),
             default_style: Style::default(),
             fallback
         }
@@ -53,11 +53,11 @@ impl ElementHandler {
             self.render_previous_levels(&mut m);
 
             if s.block {
+                self.previous_blocks.push(Block::with_style(&s));
                 crate::LEVEL += 1;
-                self.previous_styles.push(s.clone());
             } else if s.last {
                 crate::LEVEL -= 1;
-                self.previous_styles.pop();
+                self.previous_blocks.pop();
             }
         }
 
@@ -66,9 +66,21 @@ impl ElementHandler {
         m
     }
 
+    /// Close item blocks.
+    pub fn close_item(&mut self, amount: u32) {
+        if amount == 0 {
+            return;
+        }
+
+        unsafe {
+            crate::LEVEL = crate::LEVEL.saturating_sub(amount);
+            self.previous_blocks.truncate(crate::LEVEL as usize);
+        }
+    }
+
     /// Clear all previous tracked styles
     pub(crate) fn clear_previous_styles(&mut self) {
-        self.previous_styles.clear();
+        self.previous_blocks.clear();
     }
 
     /// Prepares representation of every previous block levels.
@@ -79,19 +91,35 @@ impl ElementHandler {
     /// [`Decorator::previous_item_block`]: crate::decorator::Decorator::previous_item_block
     /// [`Style`]: crate::decorator::Style
     unsafe fn render_previous_levels(&self, m: &mut String) {
-        // TODO  DECORATOR.previous_item_block result should be cached directly
-        //       instead of calling it at every single item
+        let block_len = crate::DECORATOR.block_length();
 
-        for (level, style) in self.previous_styles.iter().enumerate().skip(1).rev() {
-            let block_len = crate::DECORATOR.block_length();
-            let item = crate::DECORATOR.previous_item_block(level as u32, &style);
-            let item_chars_count = item.chars().count();
+        for previous_block in self.previous_blocks.iter().skip(1).rev() {
+            let char_count = previous_block.representation
+                                           .chars()
+                                           .count();
 
-            if item_chars_count < block_len {
-                m.insert_str(0, &" ".repeat(block_len - item_chars_count));
+            if char_count < block_len {
+                m.insert_str(0, &" ".repeat(block_len - char_count));
             }
 
-            m.insert_str(0, item);
+            m.insert_str(0, &previous_block.representation);
+        }
+    }
+}
+
+struct Block {
+    pub representation: String,
+    pub style: Style
+}
+
+impl Block {
+    pub fn with_style(style: &Style) -> Self {
+        Self {
+            representation: unsafe {
+                crate::DECORATOR.previous_item_block(crate::LEVEL, style)
+                                .to_owned()
+            },
+            style: style.clone()
         }
     }
 }

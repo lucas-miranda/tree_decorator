@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 * Add documentation to everything until now
+* Fix very nested items
 
 ## [0.1.1] - **22/06/2021**
 

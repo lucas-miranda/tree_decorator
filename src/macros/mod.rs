@@ -194,6 +194,21 @@ macro_rules! end_all_tree_items {
     };
 }
 
+#[macro_export]
+macro_rules! close_tree_item {
+    ($blocks:expr) => {
+        if let Some(handler) = $crate::element_handler() {
+            handler.close_item($blocks);
+        }
+    };
+
+    () => {
+        if let Some(handler) = $crate::element_handler() {
+            handler.close_item(1);
+        }
+    };
+}
+
 #[cfg(not(feature = "no_log"))]
 #[macro_use]
 mod log;
