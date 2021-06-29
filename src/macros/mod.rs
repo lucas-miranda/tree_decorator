@@ -194,6 +194,23 @@ macro_rules! end_all_tree_items {
     };
 }
 
+/// Close one or more tree items.
+///
+/// An optional arg can be supplied to close multiple tree items.
+///
+/// ```
+/// use tree_decorator::close_tree_item;
+///
+/// close_tree_item!(3)
+/// ```
+///
+/// Or omit to just close a single one.
+///
+/// ```
+/// use tree_decorator::close_tree_item;
+///
+/// close_tree_item!()
+/// ```
 #[macro_export]
 macro_rules! close_tree_item {
     ($blocks:expr) => {

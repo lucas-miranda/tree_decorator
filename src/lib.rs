@@ -31,7 +31,24 @@
 //! as there is no way to know when it should be closed by context, and another [`tree_item!`] 
 //! doesn't applies (or simply because it's too much blocks to close).
 //!
-//! An [`end_all_tree_items!`] can solve it.
+//! There is some options:
+//!
+//! * Specific close one or more blocks using [`close_tree_item!`]:
+//!
+//! ```
+//! use tree_decorator::{
+//!     close_tree_item,
+//!     tree_item
+//! };
+//!
+//! tree_item!(block, "Items List");
+//! tree_item!(block, "Sub Item");
+//! tree_item!(block, "Another Sub Item");
+//! tree_item!(last, "Last Sub Item");
+//! close_tree_item!(2); // close two remaining opened blocks
+//! ```
+//!
+//! * Use [`end_all_tree_items!`] to close it all:
 //!
 //! ```
 //! use tree_decorator::{
@@ -43,7 +60,7 @@
 //! tree_item!(block, "Sub Item");
 //! tree_item!(block, "Another Sub Item");
 //! tree_item!(last, "Last Sub Item");
-//! end_all_tree_items!();
+//! end_all_tree_items!(); // close all opened blocks
 //! ```
 //!
 //! # Features
