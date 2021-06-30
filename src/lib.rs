@@ -16,7 +16,35 @@
 //!                  .build();
 //! ```
 //!
-//! After that, everything works around [`tree_item!`] macro.
+//! After that, everything works around [`tree_item!`] macro (please, see it to detailed 
+//! explanations).
+//!
+//! ## Styles
+//!
+//! Some styles can be applied to a tree item by using a defined [`Style`] struct field's name,
+//! multiple ones can be used separating them with `;` and ending with `,` (see [`tree_item!`] 
+//! to more examples).
+//!
+//! Order doesn't matter, at style list, it can be defined at any arbitrary order.
+//! 
+//! ### Custom Value
+//!
+//! By default, only using style's name, will apply an enable value (see at [`StyleItemValue`]).
+//!
+//! Most of it, such as [`block`], [`dashed`] or [`last`], don't need a specialized value
+//! (even if it could be explicit defined), but [`entry`] should be specified using 
+//! a custom [`Entry`] value.
+//! 
+//! ```
+//! use tree_decorator::{
+//!     decorator::Entry,
+//!     tree_item
+//! };
+//!
+//! tree_item!(entry: Entry::Double, "Item with style custom value");
+//! ```
+//!
+//! ## Examples
 //!
 //! ```
 //! use tree_decorator::tree_item;
@@ -68,9 +96,14 @@
 //! - `no_log`: Opt-out log dependency and it's related macros ([`tree_item_debug!`], [`tree_item_error!`], [`tree_item_info!`], [`tree_item_trace!`] and [`tree_item_warn!`]).
 //!
 //! [`Decorator`]: decorator::Decorator
+//! [`Entry`]: decorator::Entry
 //! [`Style`]: decorator::Style
 //! [`StyleItemValue`]: decorator::StyleItemValue
 //! [`Style::entry`]: decorator::Style::entry
+//! [`block`]: decorator::Style::block
+//! [`dashed`]: decorator::Style::dashed
+//! [`last`]: decorator::Style::last
+//! [`entry`]: decorator::Style::entry
 
 pub mod decorator;
 pub use decorator::{

@@ -88,7 +88,7 @@ macro_rules! handle_styles {
 /// 
 /// Using only it's name will apply an enable value (see at [`StyleItemValue`]). 
 ///
-/// **Note**: Order don't matter at styles definition.
+/// **Note**: Order doesn't matter at styles definition.
 ///
 /// ## Custom Value
 ///
