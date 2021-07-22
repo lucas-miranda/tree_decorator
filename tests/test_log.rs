@@ -6,7 +6,6 @@ fn test_output() {
     use tree_decorator::{
         decorator::Entry,
         DecoratorBuilder,
-        close_tree_item,
         tree_item_info,
         tree_item_debug,
         tree_item_error,
@@ -34,9 +33,6 @@ fn test_output() {
                 tree_item_warn!(last, "Item Bba");
             assert_eq!(2, tree_decorator::level());
             tree_item_trace!(last, "Item Bc");
-        assert_eq!(1, tree_decorator::level());
-        close_tree_item!();
-
     assert_eq!(0, tree_decorator::level());
 
     tree_decorator::shutdown();

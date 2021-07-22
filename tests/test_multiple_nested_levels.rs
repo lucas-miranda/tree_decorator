@@ -1,7 +1,6 @@
 use std::cell::RefCell;
 
 use tree_decorator::{
-    close_tree_item,
     DecoratorBuilder,
     tree_item
 };
@@ -44,8 +43,6 @@ fn test_multiple_nested_levels_output() {
                 tree_item!(last, "B.a.c.c");
             assert_eq!(3, tree_decorator::level());
             tree_item!(last, "B.a.d");
-        assert_eq!(2, tree_decorator::level());
-        close_tree_item!();
     assert_eq!(1, tree_decorator::level());
     tree_item!("C");
     tree_item!("D");

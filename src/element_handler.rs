@@ -55,7 +55,16 @@ impl ElementHandler {
             if s.block {
                 self.previous_blocks.push(Block::with_style(&s));
                 crate::LEVEL += 1;
-            } else if s.last {
+            } else if s.last && self.previous_blocks.len() > 0 {
+                // pop previous last blocks, if any
+                if self.previous_blocks.last().unwrap().style.last {
+                    while self.previous_blocks.len() > 0 && self.previous_blocks.last().unwrap().style.last {
+                        crate::LEVEL -= 1;
+                        self.previous_blocks.pop();
+                    }
+                }
+
+                // pop at least one block which this 'last' style closes
                 crate::LEVEL -= 1;
                 self.previous_blocks.pop();
             }
